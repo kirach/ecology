@@ -1,4 +1,94 @@
 #{extends 'main.html' /}
-#{set title:'Home' /}
+#{set title:'Ecology' /}
 
-#{welcome /}
+#{ifErrors}
+	<span class="error">Ошибка введенных данных</span>
+#{/ifErrors}
+
+<div>
+	<h4>Введите исходные данные:</h4>
+
+
+	#{form @Application.calculate()}
+	<table>
+	*{Хозбытовые стоки, q}*
+		<tr>
+			<td class="value_name">
+				<label for="initial_data_q">Хозбытовые стоки после очистки (q):</label>
+			</td>
+			<td>
+				<input type="text" name="q" id="initial_data_q" value="${flash.q}"/>
+				<span class="error">#{error 'q'/}</span>
+			</td>
+		</tr>
+	*{Расход воды, Q}*
+		<tr>
+			<td class="value_name">
+				<label for="initial_data_q_big">Расход воды (Q):</label>
+			</td>
+			<td>
+				<input type="text" name="q_big" id="initial_data_q_big" value="${flash.q_big}"/>
+				<span class="error">#{error 'q_big'/}</span>
+			</td>
+		</tr>
+	*{Средняя глубина реки, R}*
+		<tr>
+			<td class="value_name">
+				<label for="initial_data_r_big">Средняя глубина реки (R):</label>
+			</td>
+			<td>
+				<input type="text" name="r_big" id="initial_data_r_big" value="${flash.r_big}"/>
+				<span class="error">#{error 'r_big'/}</span>
+			</td>
+		</tr>
+	*{Средняя скорость течения, H}*
+		<tr>
+			<td class="value_name">
+				<label for="initial_data_h_big">Средняя скорость течения (H):</label>
+			</td>
+			<td>
+				<input type="text" name="h_big" id="initial_data_h_big" value="${flash.h_big}"/>
+				<span class="error">#{error 'h_big'/}</span>
+			</td>
+		</tr>
+	*{Коэффициент шероховатости, n_ш}*
+		<tr>
+			<td class="value_name">
+				<label for="initial_data_n_sh">Коэффициент шероховатости (n<sub>ш </sub>):</label>
+			</td>
+			<td>
+				<input type="text" name="n_sh" id="initial_data_n_sh" value="${flash.n_sh}"/>
+				<span class="error">#{error 'n_sh'/}</span>
+			</td>
+		</tr>
+	*{Коэффициент извилистости, phi}*
+		<tr>
+			<td class="value_name">
+				<label for="initial_data_phi">Коэффициент извилистости (&#966;):</label>
+			</td>
+			<td>
+				<input type="text" name="phi" id="initial_data_phi" value="${flash.phi}"/>
+				<span class="error">#{error 'phi'/}</span>
+			</td>
+		</tr>
+	*{Коэффициент, зависящий от места выпуска сточных вод, xi}*
+		<tr>
+			<td class="value_name">
+				<label for="initial_data_chi">К-т, завис. от места выпуска сточных вод (&#967;):</label>
+			</td>
+			<td>
+				#{select 'chi', value:flash.chi, id:'initial_data_chi'}
+					#{option 1}1#{/option}
+					#{option 1.5}1.5#{/option}
+				#{/select}
+				<span class="error">#{error 'chi'/}</span>
+			</td>
+		</tr>
+	</table>
+	<p>
+		<input type="submit" value="Рассчитать"/>
+	</p>
+	#{/form}
+
+</div>
+
