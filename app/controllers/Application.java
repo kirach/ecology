@@ -10,9 +10,9 @@ import models.*;
 
 public class Application extends Controller {
 
-    public static void index() {
-        render();
-    }
+	public static void index() {
+		render();
+	}
 
 	public static void calculate(@Required Double q, @Required Double q_big, @Required Double r_big,
 	                             @Required Double h_big, @Required Double n_sh, @Required Double phi,
