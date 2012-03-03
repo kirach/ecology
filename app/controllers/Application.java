@@ -37,6 +37,17 @@ public class Application extends Controller {
 		Logger.info("qByQBig: " + qByQBig);
 		boolean condForFrRodz = (qByQBig >= 0.0025) && (qByQBig <= 0.1);
 
-		render(y, ifHLessThan5, c_big, qByQBig, condForFrRodz, q, q_big, r_big, h_big, n_sh, phi, chi);
+		//расчет коэффицимета турбулентной диффузии
+		double D;
+
+		if (!condForFrRodz){
+			//если НЕ выполняется - то по формуле Краушева
+			D = (9.81 * r_big * h_big * 2.6) / ((0.7 * c_big + 6) * c_big);
+		} else {
+			//если выполняется - то для летнего времени
+			D = (9.81 * h_big * r_big) / (37 * n_sh * Math.pow(c_big,2));
+		}
+
+		render(y, ifHLessThan5, c_big, qByQBig, condForFrRodz, q, q_big, r_big, h_big, n_sh, phi, chi, D);
 	}
 }
