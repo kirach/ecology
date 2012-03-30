@@ -63,7 +63,13 @@ public class Application extends Controller {
 		Logger.info("tmp:" + tmp);
 		alpha = phi * chi * tmp;
 
+		alpha = 1.443;
+
+		double hamma;
+		hamma = (1 - Math.pow(Math.E,(-alpha) * Math.pow(1, (double)1/(double)3))) / 
+		        (1 +(q_big/q)*(Math.pow(Math.E,(-alpha) * Math.pow(1, (double)1/(double)3))));
+
 		render(y, ifHLessThan5, c_big, qByQBig, condForFrRodz, q, q_big, r_big, h_big, n_sh, phi, chi, d_big, 
-		       alpha);
+		       alpha, hamma);
 	}
 }
