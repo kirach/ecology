@@ -1,5 +1,7 @@
-/tmp
-/modules
-/lib
-/test-result
-/logs
+logs
+project/project
+project/target
+target
+tmp
+.history
+dist

@@ -1,0 +1,28 @@
+@(calculateForm:Form[Application.Calculations])
+
+@import helper._
+
+@main("Ecology project") {
+
+	<h4>Введите исходные данные:</h4>
+
+	@form(action = routes.Application.calculate()){
+
+		@inputText(calculateForm("q"))
+
+		@inputText(calculateForm("q_big"))
+
+		@inputText(calculateForm("r_big"))
+
+		@inputText(calculateForm("h_big"))
+
+		@inputText(calculateForm("n_sh"))
+
+		@inputText(calculateForm("phi"))
+
+		@inputText(calculateForm("chi"))
+
+		<input type="submit" value="Рассчитать">
+
+	}
+}
