@@ -82,12 +82,17 @@ public class Application extends Controller {
 			double alpha;
 			alpha = filledForm.get().phi * filledForm.get().chi * Math.pow((d_big/Math.pow(filledForm.get().q, 2)), (double)1/(double)3);
 
+			//коэффициент смешения
 			double hamma;
 			hamma = (1 - Math.pow(Math.E,(-alpha) * Math.pow(filledForm.get().l, (double)1/(double)3))) /
 			        (1 +(filledForm.get().q_big/filledForm.get().q)*(Math.pow(Math.E,(-alpha) * Math.pow(filledForm.get().l, (double)1/(double)3))));
 
+			//кратность основного разбавления
+			double n;
+			n = (filledForm.get().q + hamma * filledForm.get().q_big) / filledForm.get().q;
+
 			return ok(
-				report.render(filledForm, decimalFormat, y, ifHLessThan5, c_big, qByQBig, condForFrRodz, d_big, alpha, hamma)
+				report.render(filledForm, decimalFormat, y, ifHLessThan5, c_big, qByQBig, condForFrRodz, d_big, alpha, hamma, n)
 			);
 
 		}

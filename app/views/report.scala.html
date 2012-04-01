@@ -1,4 +1,5 @@
-@(filledForm: Form[Application.Calculations], decimalFormat: java.text.DecimalFormat, y: Double, ifHLessThan5: Boolean, c_big: Double, qByQBig: Double, condForFrRodz: Boolean, d_big: Double, alpha: Double, hamma: Double)
+@(filledForm: Form[Application.Calculations], decimalFormat: java.text.DecimalFormat, y: Double, ifHLessThan5: Boolean, 
+  c_big: Double, qByQBig: Double, condForFrRodz: Boolean, d_big: Double, alpha: Double, hamma: Double, n: Double)
 
 @main("Report"){
 	<p>
@@ -34,5 +35,7 @@
 	Коэффициент, учитывающий гидравлические условия в водном объекте: a=<b>@decimalFormat.format(alpha)</b><br/><br/>
 
 	Коэффициент смешения: hamma = <b>@decimalFormat.format(hamma)</b><br/><br/>
+
+	Кратность основного разбавления: n = <b>@decimalFormat.format(n)</b><br/><br/>
 
 }
