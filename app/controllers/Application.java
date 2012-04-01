@@ -26,6 +26,7 @@ public class Application extends Controller {
 		@Required public Double n_sh;
 		@Required public Double phi;
 		@Required public Double chi;
+		@Required public Double l;
 	}
 
 	/**
@@ -82,8 +83,8 @@ public class Application extends Controller {
 			alpha = filledForm.get().phi * filledForm.get().chi * Math.pow((d_big/Math.pow(filledForm.get().q, 2)), (double)1/(double)3);
 
 			double hamma;
-			hamma = (1 - Math.pow(Math.E,(-alpha) * Math.pow(1, (double)1/(double)3))) /
-			        (1 +(filledForm.get().q_big/filledForm.get().q)*(Math.pow(Math.E,(-alpha) * Math.pow(1, (double)1/(double)3))));
+			hamma = (1 - Math.pow(Math.E,(-alpha) * Math.pow(filledForm.get().l, (double)1/(double)3))) /
+			        (1 +(filledForm.get().q_big/filledForm.get().q)*(Math.pow(Math.E,(-alpha) * Math.pow(filledForm.get().l, (double)1/(double)3))));
 
 			return ok(
 				report.render(filledForm, decimalFormat, y, ifHLessThan5, c_big, qByQBig, condForFrRodz, d_big, alpha, hamma)
