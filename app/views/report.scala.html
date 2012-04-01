@@ -1,0 +1,37 @@
+@(filledForm: Form[Application.Calculations], decimalFormat: java.text.DecimalFormat, y: Double, ifHLessThan5: Boolean, c_big: Double, qByQBig: Double, condForFrRodz: Boolean, d_big: Double, alpha: Double, hamma: Double)
+
+@main("Report"){
+	<p>
+	<h4>Введённые данные</h4>
+	Хозбытовые стоки после очистки (q):<b>@filledForm.get().q</b><br/>
+	Расход воды (Q):<b>@filledForm.get().q_big</b><br/>
+	Средняя глубина реки (R):<b>@filledForm.get().r_big</b><br/>
+	Средняя скорость течения (H):<b>@filledForm.get().h_big</b><br/>
+	Коэффициент шероховатости (n<sub>ш </sub>):<b>@filledForm.get().n_sh</b><br/>
+	Коэффициент извилистости (&#966;):<b>@filledForm.get().phi</b><br/>
+	К-т, завис. от места выпуска сточных вод (&#967;):<b>@filledForm.get().chi</b><br/>
+
+	<p>
+	<h4>Результаты:</h4>
+
+	Вектор показателей(концентраций веществ) (y):<b>@decimalFormat.format(y) г/м<sup>3</sup></b><br/><br/>
+	
+	@if(ifHLessThan5) {
+		Т.к. средняя скорость течения (H) &#60;= 5, то коэффициент Шези опрделяется по формуле Павловского<br/>
+	}
+	Коэффициент Шези (C): <b>@decimalFormat.format(c_big) м/с</b><br/><br/>
+
+	@if(condForFrRodz){
+		Условие для применения метода Фролова-Родзиллера <b>выполняется </b>
+	} else {
+		Условие для применения метода Фролова-Родзиллера <b> НЕ выполняется </b>
+	}
+	(q/Q = <b>@decimalFormat.format(qByQBig)</b>)<br/><br/>
+
+	Коэффициент турбулентной диффузии: D = <b>@decimalFormat.format(d_big)</b><br/><br/>
+
+	Коэффициент, учитывающий гидравлические условия в водном объекте: a=<b>@decimalFormat.format(alpha)</b><br/><br/>
+
+	Коэффициент смешения: hamma = <b>@decimalFormat.format(hamma)</b><br/><br/>
+
+}
