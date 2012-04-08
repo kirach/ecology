@@ -35,7 +35,7 @@ public class Application extends Controller {
 	static Form<Calculations> calculateForm = form(Calculations.class);
   
 	/**
-	 * Main, page.
+	 * Main page.
 	 */
 	public static Result index() {
 		return ok(index.render(calculateForm));
@@ -97,5 +97,4 @@ public class Application extends Controller {
 
 		}
 	}
-  
 }

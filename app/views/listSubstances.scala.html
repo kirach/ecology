@@ -1,0 +1,9 @@
+@(substances: List[Substance])
+
+@main("Вещества"){
+	<ul>
+		@for(substance <- substances) {
+			@substance.name <br/>
+		}
+	</ul>
+}

@@ -3,28 +3,16 @@
 @import helper._
 
 @main("Ecology project") {
-
-	<h4>Введите исходные данные:</h4>
-
-	@form(action = routes.Application.calculate()){
-
-		@inputText(calculateForm("q"))
-
-		@inputText(calculateForm("q_big"))
-
-		@inputText(calculateForm("r_big"))
-
-		@inputText(calculateForm("h_big"))
-
-		@inputText(calculateForm("n_sh"))
-
-		@inputText(calculateForm("phi"))
-
-		@inputText(calculateForm("chi"))
-
-		@inputText(calculateForm("l"))
-
-		<input type="submit" value="Рассчитать">
-
+	@form(action = routes.Application.calculate(), 'class -> "well"){
+		<h4>Введите исходные данные:</h4>
+		@inputText(calculateForm("q"), '_label -> "Хозбытовые стоки после очистки (q):")
+		@inputText(calculateForm("q_big"), '_label -> "Расход воды (Q):")
+		@inputText(calculateForm("r_big"), '_label -> "Средняя глубина реки (R):")
+		@inputText(calculateForm("h_big"), '_label -> "Средняя скорость течения (H):")
+		@inputText(calculateForm("n_sh"), '_label -> "Коэффициент шероховатости (n<sub>ш </sub>):")
+		@inputText(calculateForm("phi"), '_label -> "Коэффициент извилистости (&#966;):")
+		@inputText(calculateForm("chi"), '_label -> "К-т, завис. от места выпуска сточных вод (&#967;):")
+		@inputText(calculateForm("l"), '_label -> "Расстояние от выпуска до расчетного створа по фарватеру (l):")
+		<button type="submit" class="btn">Рассчитать</button>
 	}
 }

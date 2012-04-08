@@ -1,0 +1,12 @@
+@(substanceForm:Form[Substance])
+
+@import helper._
+
+@main("Добавить новое вещество"){
+	@form(action = routes.SubstanceController.save()){
+
+		@inputText(substanceForm("name"))
+
+		<input type="submit" value="Сохранить"/>
+	}
+}

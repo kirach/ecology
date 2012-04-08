@@ -10,3 +10,12 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 # Calculate action
 POST    /calculate                  controllers.Application.calculate()
+
+# List all substances
+GET     /substances                 controllers.SubstanceController.list()
+
+# Save substance
+POST    /substances                 controllers.SubstanceController.save()
+
+# 'New substance' form
+GET     /substances/new             controllers.SubstanceController.create()
