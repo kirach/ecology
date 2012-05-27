@@ -19,6 +19,12 @@ public class Substance extends Model {
 	@Required
 	public String name;
 
+	@Required
+	public Double s_pdk;
+
+	@Required
+	public Double k;
+
 	public static Finder<Long, Substance> find = new Finder(
 		Long.class, Substance.class
 	);

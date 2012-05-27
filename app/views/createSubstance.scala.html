@@ -6,6 +6,8 @@
 	@form(action = routes.SubstanceController.save()){
 
 		@inputText(substanceForm("name"))
+		@inputText(substanceForm("s_pdk"))
+		@inputText(substanceForm("k"))
 
 		<input type="submit" value="Сохранить"/>
 	}

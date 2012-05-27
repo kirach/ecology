@@ -3,7 +3,7 @@
 @main("Вещества"){
 	<ul>
 		@for(substance <- substances) {
-			@substance.name <br/>
+			<li>@substance.id | @substance.name | @substance.s_pdk | @substance.k</li>
 		}
 	</ul>
 }

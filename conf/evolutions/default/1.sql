@@ -6,6 +6,8 @@
 create table substance (
   id                        bigint not null,
   name                      varchar(255),
+  s_pdk                     double,
+  k                         double,
   constraint pk_substance primary key (id))
 ;
 
