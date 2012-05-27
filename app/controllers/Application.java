@@ -10,6 +10,8 @@ import java.text.DecimalFormat;
 
 import views.html.*;
 
+import models.*;
+
 /**
  * Main application' class.
  */
@@ -27,6 +29,9 @@ public class Application extends Controller {
 		@Required public Double phi;
 		@Required public Double chi;
 		@Required public Double l;
+		@Required public Double t;
+
+		@Required public List<String> substances;
 	}
 
 	/**
@@ -38,17 +43,24 @@ public class Application extends Controller {
 	 * Main page.
 	 */
 	public static Result index() {
-		return ok(index.render(calculateForm));
+		return ok(
+			index.render(calculateForm, Substance.all())
+		);
 	}
 
 	/**
 	 * Calculation.
 	 */
 	public static Result calculate() {
+
 		Form<Calculations> filledForm = calculateForm.bindFromRequest();
+
+		System.out.println("size:" + filledForm.get().substances.size());
+		System.out.println("t:" + filledForm.get().t);
+
 		if(filledForm.hasErrors()){
 			return badRequest(
-				index.render(filledForm)
+				index.render(filledForm, Substance.all())
 			);
 		} else {
 

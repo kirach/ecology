@@ -1,4 +1,4 @@
-@(calculateForm:Form[Application.Calculations])
+@(calculateForm:Form[Application.Calculations], substances:List[Substance])
 
 @import helper._
 
@@ -6,13 +6,19 @@
 	@form(action = routes.Application.calculate(), 'class -> "well"){
 		<h4>Введите исходные данные:</h4>
 		@inputText(calculateForm("q"), '_label -> "Хозбытовые стоки после очистки (q):")
-		@inputText(calculateForm("q_big"), '_label -> "Расход воды (Q):")
+		@inputText(calculateForm("q_big"), '_label -> Html("Расход воды (Q):"))
 		@inputText(calculateForm("r_big"), '_label -> "Средняя глубина реки (R):")
 		@inputText(calculateForm("h_big"), '_label -> "Средняя скорость течения (H):")
-		@inputText(calculateForm("n_sh"), '_label -> "Коэффициент шероховатости (n<sub>ш </sub>):")
-		@inputText(calculateForm("phi"), '_label -> "Коэффициент извилистости (&#966;):")
-		@inputText(calculateForm("chi"), '_label -> "К-т, завис. от места выпуска сточных вод (&#967;):")
+		@inputText(calculateForm("n_sh"), '_label -> Html("Коэффициент шероховатости (n<sub>ш </sub>):"))
+		@inputText(calculateForm("phi"), '_label -> Html("Коэффициент извилистости (&#966;):"))
+		@inputText(calculateForm("chi"), '_label -> Html("К-т, завис. от места выпуска сточных вод (&#967;):"))
 		@inputText(calculateForm("l"), '_label -> "Расстояние от выпуска до расчетного створа по фарватеру (l):")
+		@inputText(calculateForm("t"), '_label -> "Продолжительность пробега воды от места выпуска сточных вод до расчетного створа (t):")
+
+		Вещества:
+		@inputText(calculateForm("substances[0]"))
+		@inputText(calculateForm("substances[1]"))
+
 		<button type="submit" class="btn">Рассчитать</button>
 	}
 }
