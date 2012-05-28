@@ -30,10 +30,12 @@ public class Application extends Controller {
 		@Required public Double chi;
 		@Required public Double l;
 		@Required public Double t;
-
 		@Required public List<SubstanceValue> substances;
 	}
 
+	/**
+	 * Describes substance value in calculation form.
+	 */
 	public static class SubstanceValue {
 		@Required public Long id;
 		@Required public Double value;
@@ -60,10 +62,10 @@ public class Application extends Controller {
 
 		Form<Calculations> filledForm = calculateForm.bindFromRequest();
 
-		for(SubstanceValue substanceValue : filledForm.get().substances){
+		/*for(SubstanceValue substanceValue : filledForm.get().substances){
 			Substance substance = Substance.find.byId(substanceValue.id);
 			System.out.println(substance.name + "->" + substanceValue.value);
-		}
+		}*/
 
 		if(filledForm.hasErrors()){
 			return badRequest(
@@ -110,8 +112,16 @@ public class Application extends Controller {
 			double n;
 			n = (filledForm.get().q + hamma * filledForm.get().q_big) / filledForm.get().q;
 
+			//высчитываем ПДС для каждого вещества
+			Map<Substance, Double> pds = new HashMap<Substance, Double>();
+			for(SubstanceValue substanceValue : filledForm.get().substances){
+				Substance substance = Substance.find.byId(substanceValue.id);
+				Double tempPds = n * (substance.s_pdk * Math.pow(Math.E, substance.k * filledForm.get().t) - substanceValue.value) + substanceValue.value;
+				pds.put(substance, tempPds);
+			}
+
 			return ok(
-				report.render(filledForm, decimalFormat, y, ifHLessThan5, c_big, qByQBig, condForFrRodz, d_big, alpha, hamma, n)
+				report.render(filledForm, decimalFormat, y, ifHLessThan5, c_big, qByQBig, condForFrRodz, d_big, alpha, hamma, n, pds)
 			);
 
 		}

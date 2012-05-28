@@ -1,9 +1,11 @@
 @(filledForm: Form[Application.Calculations], decimalFormat: java.text.DecimalFormat, y: Double, ifHLessThan5: Boolean, 
-  c_big: Double, qByQBig: Double, condForFrRodz: Boolean, d_big: Double, alpha: Double, hamma: Double, n: Double)
+  c_big: Double, qByQBig: Double, condForFrRodz: Boolean, d_big: Double, alpha: Double, hamma: Double, n: Double, pds: Map[Substance,Double])
 
 @main("Report"){
 	<p>
+
 	<h4>Введённые данные</h4>
+	
 	Хозбытовые стоки после очистки (q):<b>@filledForm.get().q</b><br/>
 	Расход воды (Q):<b>@filledForm.get().q_big</b><br/>
 	Средняя глубина реки (R):<b>@filledForm.get().r_big</b><br/>
@@ -12,6 +14,7 @@
 	Коэффициент извилистости (&#966;):<b>@filledForm.get().phi</b><br/>
 	К-т, завис. от места выпуска сточных вод (&#967;):<b>@filledForm.get().chi</b><br/>
 	Расстояние от выпуска до расчетного створа по форватеру (l):<b>@filledForm.get().l</b><br/>
+	Продолжительность пробега воды от места выпуска сточных вод до расчетного створа (t):<b>@filledForm.get().t</b><br/>
 
 	<p>
 	<h4>Результаты:</h4>
@@ -37,5 +40,11 @@
 	Коэффициент смешения: hamma = <b>@decimalFormat.format(hamma)</b><br/><br/>
 
 	Кратность основного разбавления: n = <b>@decimalFormat.format(n)</b><br/><br/>
+
+	Предельно допустимая концентрация загрязняющего вещества в воде водоема:<br/>
+
+	@for((substance, value) <- pds){
+		@(substance.name) : @value <br/>
+	}
 
 }

@@ -5,7 +5,9 @@
 
 @main("Ecology project") {
 	@form(action = routes.Application.calculate(), 'class -> "well"){
+		
 		<h4>Введите исходные данные:</h4>
+		
 		@inputText(calculateForm("q"), '_label -> "Хозбытовые стоки после очистки (q):")
 		@inputText(calculateForm("q_big"), '_label -> Html("Расход воды (Q):"))
 		@inputText(calculateForm("r_big"), '_label -> "Средняя глубина реки (R):")
@@ -17,8 +19,10 @@
 		@inputText(calculateForm("t"), '_label -> "Продолжительность пробега воды от места выпуска сточных вод до расчетного створа (t):")
 
 		Вещества:
-		@select(field = calculateForm("substances[0].id"), options = options(substances map {t => (t.id.toString(), t.name)} toMap))
-		@inputText(calculateForm("substances[0].value"), '_label -> "Значение:")
+		@for((substance, i)  <- substances.zipWithIndex) {
+			@select(field = calculateForm("substances[" + i + "].id"), options = options(substances map {t => (t.id.toString(), t.name)} toMap))
+			@inputText(calculateForm("substances[" + i + "].value"), '_label -> "Значение:")
+		}
 
 		<button type="submit" class="btn">Рассчитать</button>
 	}
