@@ -1,6 +1,7 @@
 @(calculateForm:Form[Application.Calculations], substances:List[Substance])
 
 @import helper._
+@import scala.collection.immutable.List
 
 @main("Ecology project") {
 	@form(action = routes.Application.calculate(), 'class -> "well"){
@@ -16,8 +17,8 @@
 		@inputText(calculateForm("t"), '_label -> "Продолжительность пробега воды от места выпуска сточных вод до расчетного створа (t):")
 
 		Вещества:
-		@inputText(calculateForm("substances[0]"))
-		@inputText(calculateForm("substances[1]"))
+		@select(field = calculateForm("substances[0].id"), options = options(substances map {t => (t.id.toString(), t.name)} toMap))
+		@inputText(calculateForm("substances[0].value"), '_label -> "Значение:")
 
 		<button type="submit" class="btn">Рассчитать</button>
 	}

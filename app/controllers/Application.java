@@ -31,7 +31,12 @@ public class Application extends Controller {
 		@Required public Double l;
 		@Required public Double t;
 
-		@Required public List<String> substances;
+		@Required public List<SubstanceValue> substances;
+	}
+
+	public static class SubstanceValue {
+		@Required public Long id;
+		@Required public Double value;
 	}
 
 	/**
@@ -55,8 +60,10 @@ public class Application extends Controller {
 
 		Form<Calculations> filledForm = calculateForm.bindFromRequest();
 
-		System.out.println("size:" + filledForm.get().substances.size());
-		System.out.println("t:" + filledForm.get().t);
+		for(SubstanceValue substanceValue : filledForm.get().substances){
+			Substance substance = Substance.find.byId(substanceValue.id);
+			System.out.println(substance.name + "->" + substanceValue.value);
+		}
 
 		if(filledForm.hasErrors()){
 			return badRequest(
