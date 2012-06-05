@@ -33,6 +33,8 @@
 			<fieldset>
 				<legend>Вещества:</legend>
 
+				<div id="substances">
+
 				@repeat(calculateForm("substances")) {substance =>
 					@substanceGroup(substance)
 				}
@@ -43,6 +45,8 @@
 				)
 
 				<a class="btn btn-success addSubstance">Добавить новое вещество</a>
+
+				</div>
 
 				@*for((substance, i)  <- substances.zipWithIndex) {
 					<div class="substance_div">

@@ -19,3 +19,7 @@ body{
 .substance_template {
 	display: none;
 }
+
+.substance:first-child > .btn-danger{
+    display: none;
+}
