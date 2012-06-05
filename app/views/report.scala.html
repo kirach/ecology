@@ -1,50 +1,129 @@
 @(filledForm: Form[Application.Calculations], decimalFormat: java.text.DecimalFormat, y: Double, ifHLessThan5: Boolean, 
   c_big: Double, qByQBig: Double, condForFrRodz: Boolean, d_big: Double, alpha: Double, hamma: Double, n: Double, pds: Map[Substance,Double])
 
-@main("Report", nav="calculate"){
-	<p>
+@main("Отчёт", nav="calculate"){
 
-	<h4>Введённые данные</h4>
-	
-	Хозбытовые стоки после очистки (q):<b>@filledForm.get().q</b><br/>
-	Расход воды (Q):<b>@filledForm.get().q_big</b><br/>
-	Средняя глубина реки (R):<b>@filledForm.get().r_big</b><br/>
-	Средняя скорость течения (H):<b>@filledForm.get().h_big</b><br/>
-	Коэффициент шероховатости (n<sub>ш </sub>):<b>@filledForm.get().n_sh</b><br/>
-	Коэффициент извилистости (&#966;):<b>@filledForm.get().phi</b><br/>
-	К-т, завис. от места выпуска сточных вод (&#967;):<b>@filledForm.get().chi</b><br/>
-	Расстояние от выпуска до расчетного створа по форватеру (l):<b>@filledForm.get().l</b><br/>
-	Продолжительность пробега воды от места выпуска сточных вод до расчетного створа (t):<b>@filledForm.get().t</b><br/>
+	<div class="span8 offset2 report">
 
-	<p>
-	<h4>Результаты:</h4>
+		<legend>Исходные данные</legend>
 
-	Вектор показателей(концентраций веществ) (y):<b>@decimalFormat.format(y) г/м<sup>3</sup></b><br/><br/>
-	
-	@if(ifHLessThan5) {
-		Т.к. средняя скорость течения (H) &#60;= 5, то коэффициент Шези опрделяется по формуле Павловского<br/>
-	}
-	Коэффициент Шези (C): <b>@decimalFormat.format(c_big) м/с</b><br/><br/>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<td><b>Параметр</b></td>
+					<td><b>Значение</b></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Хозбытовые стоки после очистки (q)</td>
+					<td>@filledForm.get().q</td>
+				</tr>
+				<tr>
+					<td>Расход воды (Q)</td>
+					<td>@filledForm.get().q_big</td>
+				</tr>
+				<tr>
+					<td>Средняя глубина реки (R)</td>
+					<td>@filledForm.get().r_big</td>
+				</tr>
+				<tr>
+					<td>Средняя скорость течения (H)</td>
+					<td>@filledForm.get().h_big</td>
+				</tr>
+				<tr>
+					<td>Коэффициент шероховатости (n<sub>ш </sub>)</td>
+					<td>@filledForm.get().n_sh</td>
+				</tr>
+				<tr>
+					<td>Коэффициент извилистости (&#966;)</td>
+					<td>@filledForm.get().phi</td>
+				</tr>
+				<tr>
+					<td>К-т, завис. от места выпуска сточных вод (&#967;)</td>
+					<td>@filledForm.get().chi</td>
+				</tr>
+				<tr>
+					<td>Расстояние от выпуска до расчетного створа по форватеру (l)</td>
+					<td>@filledForm.get().l</tr>
+				</tr>
+				<tr>
+					<td>Продолжительность пробега воды от места выпуска сточных вод до расчетного створа (t)</td>
+					<td>@filledForm.get().t</td>
+				</tr>
+			</tbody>
+		</table>
 
-	@if(condForFrRodz){
-		Условие для применения метода Фролова-Родзиллера <b>выполняется </b>
-	} else {
-		Условие для применения метода Фролова-Родзиллера <b> НЕ выполняется </b>
-	}
-	(q/Q = <b>@decimalFormat.format(qByQBig)</b>)<br/><br/>
+		<legend>Результаты</legend>
 
-	Коэффициент турбулентной диффузии: D = <b>@decimalFormat.format(d_big)</b><br/><br/>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<td><b>Параметр</b></td>
+					<td><b>Значение</b></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Вектор показателей(концентраций веществ) (y)</td>
+					<td>@decimalFormat.format(y) г/м<sup>3</sup></td>
+				</tr>
+				<tr>
+					<td>
+						Коэффициент Шези (C)<br/>
+						@if(ifHLessThan5) {
+							<em>Т.к. средняя скорость течения (H) &#60;= 5, то коэффициент Шези опрделяется по формуле Павловского</em>
+						}
+					</td>
+					<td>@decimalFormat.format(c_big) м/с</td>
+				</tr>
+				<tr>
+					<td>Условие для применения метода Фролова-Родзиллера</td>
+					<td>
+						@if(condForFrRodz){
+							выполняется
+						} else {
+							НЕ выполняется
+						}
+						<br><em>(q/Q = @decimalFormat.format(qByQBig))</em>
+					</td>
+				</tr>
+				<tr>
+					<td>Коэффициент турбулентной диффузии (D)</td>
+					<td>@decimalFormat.format(d_big)</td>
+				</tr>
+				<tr>
+					<td>Коэффициент, учитывающий гидравлические условия в водном объекте (a)</td>
+					<td>@decimalFormat.format(alpha)</td>
+				</tr>
+				<tr>
+					<td>Коэффициент смешения (&#947;)</td>
+					<td>@decimalFormat.format(hamma)</td>
+				</tr/>
+				<tr>
+					<td>Кратность основного разбавления (n)</td>
+					<td>@decimalFormat.format(n)</td>
+				</tr>
+			</tbody>
+		</table>
 
-	Коэффициент, учитывающий гидравлические условия в водном объекте: a=<b>@decimalFormat.format(alpha)</b><br/><br/>
-
-	Коэффициент смешения: hamma = <b>@decimalFormat.format(hamma)</b><br/><br/>
-
-	Кратность основного разбавления: n = <b>@decimalFormat.format(n)</b><br/><br/>
-
-	Предельно допустимая концентрация загрязняющего вещества в воде водоема:<br/>
-
-	@for((substance, value) <- pds){
-		@(substance.name) : @value <br/>
-	}
+		<legend>Предельно допустимая концентрация загрязняющего вещества в воде водоема</legend>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<td><b>Вещество</b></td>
+					<td><b>Значение</b></td>
+				</tr>
+			</thead>
+			<tbody>
+				@for((substance, value) <- pds){
+					<tr>
+						<td>@(substance.name)</td>
+						<td>@value</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
 
 }
