@@ -51,14 +51,23 @@ public class Application extends Controller {
 	 */
 	public static Result index() {
 		return ok(
-			index.render(calculateForm, Substance.all())
+			index.render()
+		);
+	}
+
+	/**
+     * Calculate form.
+     */
+	public static Result calculate(){
+		return ok(
+			calculate.render(calculateForm, Substance.all())
 		);
 	}
 
 	/**
 	 * Calculation.
 	 */
-	public static Result calculate() {
+	public static Result doCalculate() {
 
 		Form<Calculations> filledForm = calculateForm.bindFromRequest();
 
@@ -69,7 +78,7 @@ public class Application extends Controller {
 
 		if(filledForm.hasErrors()){
 			return badRequest(
-				index.render(filledForm, Substance.all())
+				calculate.render(filledForm, Substance.all())
 			);
 		} else {
 

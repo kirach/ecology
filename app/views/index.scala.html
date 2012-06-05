@@ -1,29 +1,16 @@
-@(calculateForm:Form[Application.Calculations], substances:List[Substance])
-
-@import helper._
-@import scala.collection.immutable.List
-
-@main("Ecology project") {
-	@form(action = routes.Application.calculate(), 'class -> "well"){
-		
-		<h4>Введите исходные данные:</h4>
-		
-		@inputText(calculateForm("q"), '_label -> "Хозбытовые стоки после очистки (q):")
-		@inputText(calculateForm("q_big"), '_label -> Html("Расход воды (Q):"))
-		@inputText(calculateForm("r_big"), '_label -> "Средняя глубина реки (R):")
-		@inputText(calculateForm("h_big"), '_label -> "Средняя скорость течения (H):")
-		@inputText(calculateForm("n_sh"), '_label -> Html("Коэффициент шероховатости (n<sub>ш </sub>):"))
-		@inputText(calculateForm("phi"), '_label -> Html("Коэффициент извилистости (&#966;):"))
-		@inputText(calculateForm("chi"), '_label -> Html("К-т, завис. от места выпуска сточных вод (&#967;):"))
-		@inputText(calculateForm("l"), '_label -> "Расстояние от выпуска до расчетного створа по фарватеру (l):")
-		@inputText(calculateForm("t"), '_label -> "Продолжительность пробега воды от места выпуска сточных вод до расчетного створа (t):")
-
-		Вещества:
-		@for((substance, i)  <- substances.zipWithIndex) {
-			@select(field = calculateForm("substances[" + i + "].id"), options = options(substances map {t => (t.id.toString(), t.name)} toMap))
-			@inputText(calculateForm("substances[" + i + "].value"), '_label -> "Значение:")
-		}
-
-		<button type="submit" class="btn">Рассчитать</button>
-	}
+@main("Название проекта"){
+	<div class="span8 offset1 hero-unit">
+		<h1>Расчет нормативов допустимых сбросов веществ</h1>
+		<p>Тут подробное опичание о проекте.Бобовая руда, основываясь большей частью на сейсмических данных, занимает соленосный 
+		   артезианский бассейн, где на поверхность выведены кристаллические структуры фундамента. Анортит, а также в преимущественно 
+		   песчаных и песчано-глинистых отложениях верхней и средней юры, растрескан. Деградация мерзлоты, по которому один блок 
+		   опускается относительно другого, деформирует кристаллический трог, что связано с мощностью вскрыши и полезного ископаемого. 
+		   Кама сменяет подземный сток, в соответствии с изменениями в суммарной минерализации.
+		</p>
+		<p>
+			<a class="btn btn-primary btn-large" href="@routes.Application.calculate()">
+				Перейти к рассчёту
+			</a>
+		</p>
+	</div>
 }

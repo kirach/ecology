@@ -1,0 +1,88 @@
+@(calculateForm:Form[Application.Calculations], substances:List[Substance])
+
+@import helper._
+@import scala.collection.immutable.List
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) }
+
+@substanceGroup(field: Field, className: String = "substance") = {
+	<div class="@className well">
+		<a class="btn btn-danger pull-right removeSubstance">Убрать</a>
+		@select(field("id"), options = options(substances map {t => (t.id.toString(), t.name)} toMap), '_label -> "Вещество:")
+		@inputText(field("value"), '_label -> "Значение:")
+	</div>
+}
+
+@main("Ecology project") {
+	<div class="span6 offset2">
+		@form(action = routes.Application.calculate(), 'class -> "calculate_form"){
+
+			<fieldset>
+				<legend>Общие параметры:</legend>
+				@inputText(calculateForm("q"), '_label -> "Хозбытовые стоки после очистки (q):")
+				@inputText(calculateForm("q_big"), '_label -> Html("Расход воды (Q):"))
+				@inputText(calculateForm("r_big"), '_label -> "Средняя глубина реки (R):")
+				@inputText(calculateForm("h_big"), '_label -> "Средняя скорость течения (H):")
+				@inputText(calculateForm("n_sh"), '_label -> Html("Коэффициент шероховатости (n<sub>ш </sub>):"))
+				@inputText(calculateForm("phi"), '_label -> Html("Коэффициент извилистости (&#966;):"))
+				@inputText(calculateForm("chi"), '_label -> Html("К-т, завис. от места выпуска сточных вод (&#967;):"))
+				@inputText(calculateForm("l"), '_label -> "Расстояние от выпуска до расчетного створа по фарватеру (l):")
+				@inputText(calculateForm("t"), '_label -> "Продолжительность пробега воды от места выпуска сточных вод до расчетного створа (t):")
+			</fieldset>
+
+			<fieldset>
+				<legend>Вещества:</legend>
+
+				@repeat(calculateForm("substances")) {substance =>
+					@substanceGroup(substance)
+				}
+
+				@substanceGroup(
+					calculateForm("substances[x]"),
+					className = "substance_template"
+				)
+
+				<a class="btn btn-success addSubstance">Добавить новое вещество</a>
+
+				@*for((substance, i)  <- substances.zipWithIndex) {
+					<div class="substance_div">
+						<button class="btn btn-danger pull-right">Убрать</button>
+						@select(field = calculateForm("substances[" + i + "].id"), options = options(substances map {t => (t.id.toString(), t.name)} toMap))
+						@inputText(calculateForm("substances[" + i + "].value"), '_label -> "Значение:")<br>
+					</div>
+				}*@
+			</fieldset>
+
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary">Рассчитать</button>
+				<button class="btn">Очистить</button>
+			</div>
+		}
+	</div>
+	
+	<script type="text/javascript">
+
+		$('.addSubstance').live('click', function(e){
+			var template = $('.substance_template')
+			template.before('<div class="substance well">' + template.html() + '</div>')
+			renumber()
+		})
+
+		$('.removeSubstance').live('click', function(e){
+			$(this).parents('.substance').remove()
+			renumber()
+		})
+
+		var renumber = function(){
+			$('.substance').each(function(i){
+				$('input', this).each(function(){
+					$(this).attr('name', $(this).attr('name').replace(/substances\[.+?\]/g, 'substances[' + i + ']'))
+				})
+				$('select', this).each(function(){
+					$(this).attr('name', $(this).attr('name').replace(/substances\[.+?\]/g, 'substances[' + i + ']'))
+				})
+			})
+		}
+
+	</script>
+}
