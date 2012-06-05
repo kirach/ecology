@@ -1,14 +1,24 @@
 @(substanceForm:Form[Substance])
 
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) }
 @import helper._
 
 @main("Добавить новое вещество"){
-	@form(action = routes.SubstanceController.save()){
+	<div class="span6 offset2">
+	@form(action = routes.SubstanceController.save(), 'class -> "new_substance_form"){
 
-		@inputText(substanceForm("name"))
-		@inputText(substanceForm("s_pdk"))
-		@inputText(substanceForm("k"))
+		<fieldset>
+			<legend>Новое вещество:</legend>
 
-		<input type="submit" value="Сохранить"/>
+			@inputText(substanceForm("name"), '_label -> "Имя:")
+			@inputText(substanceForm("s_pdk"), '_label -> Html("С<sub>ПДК</sub>:"))
+			@inputText(substanceForm("k:"))
+
+			<div class="form-actions">
+				<input type="submit" class="btn btn-primary" value="Сохранить"/>
+			</div>
+
+		</fieldset>
 	}
+	</div>
 }

@@ -23,3 +23,9 @@ body{
 .substance:first-child > .btn-danger{
     display: none;
 }
+
+.new_substance_form{
+	background-color: #FFFFFF;
+	border: 1px solid #CCCCCC;
+	padding: 18px 20px 10px;
+}
