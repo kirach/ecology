@@ -1,9 +1,28 @@
 @(substances: List[Substance])
 
 @main("Вещества"){
-	<ul>
-		@for(substance <- substances) {
-			<li>@substance.id | @substance.name | @substance.s_pdk | @substance.k</li>
-		}
-	</ul>
+	<div class="span6 offset2 substances_list">
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<td>Id</td>
+					<td>Имя</td>
+					<td>С<sub>ПДК</sub></td>
+					<td>k</td>
+				</tr>
+			</thead>
+			<tbody>
+				@for(substance <- substances) {
+					<tr>
+						<td>@substance.id</td>
+						<td>@substance.name</td>
+						<td>@substance.s_pdk</td>
+						<td>@substance.k</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+
+	</div>
 }
