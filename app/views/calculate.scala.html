@@ -15,7 +15,7 @@
 
 @main("Ecology project") {
 	<div class="span6 offset2">
-		@form(action = routes.Application.calculate(), 'class -> "calculate_form"){
+		@form(action = routes.Application.doCalculate(), 'id -> "form", 'class -> "calculate_form"){
 
 			<fieldset>
 				<legend>Общие параметры:</legend>
@@ -58,8 +58,8 @@
 			</fieldset>
 
 			<div class="form-actions">
-				<button type="submit" class="btn btn-primary">Рассчитать</button>
-				<button class="btn">Очистить</button>
+				<input type="submit" class="btn btn-primary" value="Рассчитать"/>
+				<a class="btn">Очистить</a>
 			</div>
 		}
 	</div>
@@ -75,6 +75,10 @@
 		$('.removeSubstance').live('click', function(e){
 			$(this).parents('.substance').remove()
 			renumber()
+		})
+
+		$('#form').submit(function(){
+			$('.substance_template').remove()
 		})
 
 		var renumber = function(){
