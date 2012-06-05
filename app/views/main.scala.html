@@ -1,4 +1,4 @@
-@(title: String)(content: Html)
+@(title: String, nav: String = "")(content: Html)
 
 <!DOCTYPE html>
 
@@ -10,19 +10,29 @@
 		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
 		<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
 		<script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+		<script src="@routes.Assets.at("javascripts/bootstrap-dropdown.js")" type="text/javascript"></script>
 	</head>
 	<body>
 
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container">
-					<a class="brand" href="#">Project name</a>
+					<a class="brand" href="@routes.Application.index()">Расчет нормативов допустимых сбросов веществ</a>
 					<ul class="nav">
-						<li class="active">
-							<a href="#">Home</a>
+						<li class="@("active".when(nav == "calculate"))">
+							<a href="@routes.Application.calculate()">Рассчёты</a>
 						</li>
-						<li><a href="#">Link</a></li>
-						<li><a href="#">Link</a></li>
+						<li class="dropdown @("active".when(nav == "substance"))">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Вещества<b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="@routes.SubstanceController.list()">Список всех веществ</a>
+								</li>
+								<li>
+									<a href="@routes.SubstanceController.create()">Добавить новое вещество</a>
+								</li>
+							</ul>
+						</li>
 					</ul>
 				</div>
 			</div>

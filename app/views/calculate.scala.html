@@ -13,7 +13,7 @@
 	</div>
 }
 
-@main("Ecology project") {
+@main("Ecology project", nav="calculate") {
 	<div class="span6 offset2">
 		@form(action = routes.Application.doCalculate(), 'id -> "form", 'class -> "calculate_form"){
 
@@ -35,26 +35,19 @@
 
 				<div id="substances">
 
-				@repeat(calculateForm("substances")) {substance =>
-					@substanceGroup(substance)
-				}
+					@repeat(calculateForm("substances")) {substance =>
+						@substanceGroup(substance)
+					}
 
-				@substanceGroup(
-					calculateForm("substances[x]"),
-					className = "substance_template"
-				)
+					@substanceGroup(
+						calculateForm("substances[x]"),
+						className = "substance_template"
+					)
 
-				<a class="btn btn-success addSubstance">Добавить новое вещество</a>
+					<a class="btn btn-success addSubstance">Добавить новое вещество</a>
 
 				</div>
 
-				@*for((substance, i)  <- substances.zipWithIndex) {
-					<div class="substance_div">
-						<button class="btn btn-danger pull-right">Убрать</button>
-						@select(field = calculateForm("substances[" + i + "].id"), options = options(substances map {t => (t.id.toString(), t.name)} toMap))
-						@inputText(calculateForm("substances[" + i + "].value"), '_label -> "Значение:")<br>
-					</div>
-				}*@
 			</fieldset>
 
 			<div class="form-actions">
