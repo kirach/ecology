@@ -6,8 +6,8 @@
 create table substance (
   id                        bigint not null,
   name                      varchar(255),
-  s_pdk                     double,
-  k                         double,
+  s_pdk                     float,
+  k                         float,
   constraint pk_substance primary key (id))
 ;
 
@@ -18,11 +18,7 @@ create sequence substance_seq;
 
 # --- !Downs
 
-SET REFERENTIAL_INTEGRITY FALSE;
-
-drop table if exists substance;
-
-SET REFERENTIAL_INTEGRITY TRUE;
+drop table if exists substance cascade;
 
 drop sequence if exists substance_seq;
 
